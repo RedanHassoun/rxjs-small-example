@@ -10,7 +10,15 @@
             (answerChosen)="userSelectAnswer($event)">
 
         </app-question-presenter>
+
+        <app-quiz-over
+            *ngIf="isQuizOver">
+        </app-quiz-over>
     </div>
 
-    <div class="summary-area"></div>
+    <div class="summary-area">
+        <app-summary
+            [questions]="summary">
+        </app-summary>
+    </div>
 </div>
