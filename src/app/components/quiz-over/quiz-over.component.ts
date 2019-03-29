@@ -12,8 +12,7 @@ export class QuizOverComponent implements OnInit {
   constructor(private quizService: QuizService) { }
 
   async ngOnInit() {
-    if (await this.quizService.isQuizOver())
-      this.score = await this.quizService.getScore();
+    this.score = await this.quizService.getScore();
   }
 
   async startAgain() {
