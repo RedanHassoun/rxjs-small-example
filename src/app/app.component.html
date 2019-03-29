@@ -1,0 +1,16 @@
+<div class="root">
+    <div class="title-area">
+        <h1>Pop Quiz</h1>
+    </div>
+
+    <div class="main-area">
+        <app-question-presenter
+            *ngIf="!isQuizOver"
+            [question]="currentQuestion"
+            (answerChosen)="userSelectAnswer($event)">
+
+        </app-question-presenter>
+    </div>
+
+    <div class="summary-area"></div>
+</div>
