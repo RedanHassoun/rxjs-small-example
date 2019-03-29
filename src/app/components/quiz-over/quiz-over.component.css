@@ -9,3 +9,9 @@ h2{
     display: block;
     margin: auto;
 }
+
+p{
+    font-weight: bold;
+    color: lightslategrey;
+    text-align: center;
+}

@@ -7,13 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./quiz-over.component.css']
 })
 export class QuizOverComponent implements OnInit {
+  private score: number = 0;
 
-  constructor(private quizService:QuizService) { }
+  constructor(private quizService: QuizService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    if (await this.quizService.isQuizOver())
+      this.score = await this.quizService.getScore();
   }
 
-  async startAgain(){
+  async startAgain() {
     await this.quizService.resetQuiz();
   }
 

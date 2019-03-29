@@ -50,7 +50,7 @@ export class QuizService {
   }
 
   public resetQuiz(): Promise<void> {
-    for(let i=0; i< QUESTIONS.length; i++){
+    for (let i = 0; i < QUESTIONS.length; i++) {
       QUESTIONS[i].userAnswer = -1;
     }
     this.currentQuestionIndex$ = new BehaviorSubject<number>(0);
@@ -61,5 +61,22 @@ export class QuizService {
 
   public getQuizResetStream(): Observable<number> {
     return this.quizNumberIndex$;
+  }
+
+  public getScore(): Promise<number> {
+    let score: number = 0;
+
+    // Calculate correct answers
+    for (let i = 0; i < QUESTIONS.length; i++) {
+      let q: Question = QUESTIONS[i]
+      if (q.userAnswer === q.correctAnswer) {
+        score++;
+      }
+    }
+
+    // Calculate average
+    score = 100 * (score / QUESTIONS.length);
+
+    return Promise.resolve(score);
   }
 }
