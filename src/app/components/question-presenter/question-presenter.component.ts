@@ -18,7 +18,7 @@ export class QuestionPresenterComponent implements OnInit {
       console.error('Question is undefinded');
       return;
     }
- 
+
     let answerIndex: number = this.question.answers.indexOf(answer);
 
     try {

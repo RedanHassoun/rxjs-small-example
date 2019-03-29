@@ -33,11 +33,6 @@ export class QuizService {
   }
 
   public async answerCurrentQuestion(answerIndex: number): Promise<void> {
-    // if (await this.isQuizOver().toPromise()) {
-    //   console.error('Quiz is over');
-    //   return Promise.reject();
-    // }
-
     if (answerIndex < 0) {
       throw new Error('Cannot find the answer index');
     }

@@ -10,9 +10,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  private isQuizOver$:Observable<boolean>;
-  
-  constructor(private quizService:QuizService){
-      this.isQuizOver$ = this.quizService.isQuizOver();
+  private isQuizOver$: Observable<boolean>;
+
+  constructor(private quizService: QuizService) {
+    this.isQuizOver$ = this.quizService.isQuizOver();
   }
 }

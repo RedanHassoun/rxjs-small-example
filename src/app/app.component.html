@@ -4,8 +4,7 @@
     </div>
 
     <div class="main-area">
-        <app-question-presenter
-            *ngIf="! (isQuizOver$ | async)">
+        <app-question-presenter *ngIf="! (isQuizOver$ | async)">
         </app-question-presenter>
 
         <app-quiz-over *ngIf="isQuizOver$ | async">
