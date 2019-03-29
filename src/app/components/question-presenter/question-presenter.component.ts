@@ -1,14 +1,16 @@
 import { QuizService } from './../../services/quiz.service';
 import { Question } from './../../model/question';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-question-presenter',
   templateUrl: './question-presenter.component.html',
   styleUrls: ['./question-presenter.component.css']
 })
-export class QuestionPresenterComponent implements OnInit {
-  question: Question;
+export class QuestionPresenterComponent implements OnInit,OnDestroy {
+  private question: Question;
+  private resetSubscription:Subscription;
 
   constructor(private quizService: QuizService) {
   }
@@ -29,10 +31,24 @@ export class QuestionPresenterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.init();
+
+    this.quizService.getQuizResetStream()
+      .subscribe(i => {
+        this.init();
+      })
+  }
+
+  init() {
     this.quizService.getCurrentQuestion()
       .subscribe(q => {
         this.question = q;
       })
   }
 
+  ngOnDestroy(): void {
+    if(this.resetSubscription){
+      this.resetSubscription.unsubscribe();
+    }
+  }
 }

@@ -1,3 +1,4 @@
+import { QuizService } from './../../services/quiz.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuizOverComponent implements OnInit {
 
-  constructor() { }
+  constructor(private quizService:QuizService) { }
 
   ngOnInit() {
+  }
+
+  async startAgain(){
+    await this.quizService.resetQuiz();
   }
 
 }

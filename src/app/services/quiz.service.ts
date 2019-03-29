@@ -9,8 +9,9 @@ import { map } from 'rxjs/operators';
 })
 export class QuizService {
   private currentQuestionIndex$ = new BehaviorSubject<number>(0);
+  private quizNumberIndex$ = new BehaviorSubject<number>(0);
 
-  constructor() {}
+  constructor() { }
 
   public getCurrentQuestionIndex(): Observable<number> {
     return this.currentQuestionIndex$;
@@ -46,5 +47,19 @@ export class QuizService {
     return this.currentQuestionIndex$.pipe(
       map(i => i >= QUESTIONS.length)
     );
+  }
+
+  public resetQuiz(): Promise<void> {
+    for(let i=0; i< QUESTIONS.length; i++){
+      QUESTIONS[i].userAnswer = -1;
+    }
+    this.currentQuestionIndex$ = new BehaviorSubject<number>(0);
+    let quizIndex = this.quizNumberIndex$.value;
+    this.quizNumberIndex$.next(quizIndex + 1);
+    return Promise.resolve();
+  }
+
+  public getQuizResetStream(): Observable<number> {
+    return this.quizNumberIndex$;
   }
 }
