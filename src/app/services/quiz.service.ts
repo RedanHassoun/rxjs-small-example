@@ -8,13 +8,9 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class QuizService {
-  private currentQuestion: Question;
   private currentQuestionIndex$ = new BehaviorSubject<number>(0);
-  private summary: Question[];
 
-  constructor() {
-    this.summary = [];
-  }
+  constructor() {}
 
   public getCurrentQuestionIndex(): Observable<number> {
     return this.currentQuestionIndex$;
