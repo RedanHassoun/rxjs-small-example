@@ -1,8 +1,10 @@
-<h2>{{question.caption}}</h2>
+<div *ngIf="question">
+  <h2>{{question.caption}}</h2>
 
-<ul>
-  <li *ngFor="let answer of question.answers"
-      (click)="onSelectAnswer(answer)">
-    {{answer}}
-  </li>
-</ul>
+  <ul>
+    <li *ngFor="let answer of question.answers"
+        (click)="onSelectAnswer(answer)">
+      {{answer}}
+    </li>
+  </ul>
+</div>

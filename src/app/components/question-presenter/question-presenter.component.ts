@@ -1,5 +1,6 @@
+import { QuizService } from './../../services/quiz.service';
 import { Question } from './../../model/question';
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-question-presenter',
@@ -7,19 +8,31 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./question-presenter.component.css']
 })
 export class QuestionPresenterComponent implements OnInit {
-  @Input('question')
-  question:Question;
+  question: Question;
 
-  @Output('answerChosen')
-  answerChosen = new EventEmitter<string>();
+  constructor(private quizService: QuizService) {
+  }
 
-  constructor() { }
+  async onSelectAnswer(answer: string) {
+    if (!this.question) {
+      console.error('Question is undefinded');
+      return;
+    }
+ 
+    let answerIndex: number = this.question.answers.indexOf(answer);
 
-  onSelectAnswer(answer:string){
-    this.answerChosen.emit(answer);
+    try {
+      await this.quizService.answerCurrentQuestion(answerIndex);
+    } catch (e) {
+      console.error('Error while answering question  ', e);
+    }
   }
 
   ngOnInit() {
+    this.quizService.getCurrentQuestion()
+      .subscribe(q => {
+        this.question = q;
+      })
   }
 
 }
